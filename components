@@ -1,0 +1,14 @@
+Components
+
+[sound-crawler] - maps out audio library
+[audio-base] - serves pages and json
+[locator] - server side graph builder
+[logit] - event logger
+
+[app] - client side
+[vision] - client side
+[audio-chain] - clientside
+
+[db] - mongo
+
+slipstream
