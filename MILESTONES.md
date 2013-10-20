@@ -25,6 +25,7 @@ the project:
 - Implementation
 - Experimentation
 - Optimisation
+- Testing
 - Evaluation
 
 
