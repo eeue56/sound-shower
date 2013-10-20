@@ -4,15 +4,14 @@ SoundShower
 Stream synchronized audio to devices with a localized network, based upon their relative position within the network.
 
 
-Components
-==========
+## Components
 
-## Server
-
-### sound-crawler
+### Server
+***
+### [sound-crawler](https://github.com/code-curve/sound-crawler)
 maps out audio library
 
-### audio-base
+### [audio-base](https://github.com/code-curve/audio-base)
 serves pages and json
 
 ### conductor
@@ -21,12 +20,12 @@ streaming control platform
 ### locator
 server side graph builder
 
-### logit
+### [logit](https://github.com/code-curve/logit)
 event logger
 
 
-## Client
-
+### Client
+***
 ### app
 phonegap application
 
