@@ -52,7 +52,7 @@ the project:
 - Optimisation
 - Testing
 - Evaluation
-
+- Working practices
 
 ###### _17.01.14_ Evaluation
 Evaluate what you have done both in absolute terms and in comparison with existing techniques, software, hardware etc
