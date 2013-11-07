@@ -1,0 +1,227 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Example: Project Report
+%
+% Source: http://www.howtotex.com
+%
+% Feel free to distribute this example, but please keep the referral
+% to howtotex.com
+% Date: March 2011 
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use writeLaTeX: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Edit the title below to update the display in My Documents
+%\title{Project Report}
+%
+%%% Preamble
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+
+\usepackage[english]{babel}                                                                                                                     % English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}  
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage[pdftex]{graphicx}   
+\usepackage{url}
+
+
+%%% Custom sectioning
+\usepackage{sectsty}
+\allsectionsfont{\centering \normalfont\scshape}
+
+
+%%% Custom headers/footers (fancyhdr package)
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}                                                                                    % No page header
+\fancyfoot[L]{}                                                                                 % Empty 
+\fancyfoot[C]{}                                                                                 % Empty
+\fancyfoot[R]{\thepage}                                                                 % Pagenumbering
+\renewcommand{\headrulewidth}{0pt}                      % Remove header underlines
+\renewcommand{\footrulewidth}{0pt}                              % Remove footer underlines
+\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}                % Equationnumbering: section.eq#
+\numberwithin{figure}{section}                  % Figurenumbering: section.fig#
+\numberwithin{table}{section}                           % Tablenumbering: section.tab#
+
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}         % Horizontal rule
+
+\title{
+                %\vspace{-1in}  
+                \usefont{OT1}{bch}{b}{n}
+                \normalfont \normalsize \textsc{Invidual Project} \\ [25pt]
+                \horrule{0.5pt} \\[0.4cm]
+                \huge Preliminary Report \\
+                \horrule{0.5pt} \\[0.5cm]
+}
+\author{
+                \normalfont                                                             \normalsize
+        Dan Prince\\[-3pt]              \normalsize
+        \today
+}
+\date{}
+
+
+%%% Begin document
+\begin{document}
+\maketitle
+\section{Project Brief}
+The aim of this project is to create a distributed audio platform that conditionally streams audio based on the physical location of a device within a network of connected devices. A session should be created, which devices can join, the devices will then be positioned and their positions should be relayed to a server, which will stream audio to the devices depending on their position.
+
+\section{Technology}
+The implementation for this project will be done with a web based (or Phonegap) client application and a Nodejs server. The asynchronous event based nature of Node makes it ideal for this kind of platform. It will also make use of HTML5 WebSockets, to handle the message passing and chunk streaming.
+
+
+\section{Ideas}
+The first part of the project that I am going to cover is the audio streaming. Once the devices have been localized, they should be ready to recieve streams.
+
+Streams need to be specific to the diffferent devices, and therefore need to be tied in some way to their localized identifier. This could be achieved by passing some identifier to the client, so that they can request a stream from a unique URL. A cleaner solution, however, would be to read audio files at the server, then break them into chunks and send the chunks over the WebSockets, so that they can be decoded and played at the client.
+
+Alternatively, the entirety of the files could be transferred to the client upon initialisation and then messages from the server would just act in conducting the different, play, pause or add/change effect at the client side. Syncronisation would almost certainly be easier to achieve like this, but it means that there would be a substantial delay at the start, as the clients download the audio files.
+
+
+\section{Implementation}
+
+
+\section{Demo}
+
+
+\subsection{Example for list (enumerate)}
+\begin{enumerate}
+        \item First item in a list 
+        \item Second item in a list 
+        \item Third item in a list
+\end{enumerate}
+%%% End document
+\end{document}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Example: Project Report
+%
+% Source: http://www.howtotex.com
+%
+% Feel free to distribute this example, but please keep the referral
+% to howtotex.com
+% Date: March 2011 
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use writeLaTeX: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Edit the title below to update the display in My Documents
+%\title{Project Report}
+%
+%%% Preamble
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+
+\usepackage[english]{babel}                                                                                                                     % English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}  
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage[pdftex]{graphicx}   
+\usepackage{url}
+
+
+%%% Custom sectioning
+\usepackage{sectsty}
+\allsectionsfont{\centering \normalfont\scshape}
+
+
+%%% Custom headers/footers (fancyhdr package)
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}                                                                                    % No page header
+\fancyfoot[L]{}                                                                                 % Empty 
+\fancyfoot[C]{}                                                                                 % Empty
+\fancyfoot[R]{\thepage}                                                                 % Pagenumbering
+\renewcommand{\headrulewidth}{0pt}                      % Remove header underlines
+\renewcommand{\footrulewidth}{0pt}                              % Remove footer underlines
+\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}                % Equationnumbering: section.eq#
+\numberwithin{figure}{section}                  % Figurenumbering: section.fig#
+\numberwithin{table}{section}                           % Tablenumbering: section.tab#
+
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}         % Horizontal rule
+
+\title{
+                %\vspace{-1in}  
+                \usefont{OT1}{bch}{b}{n}
+                \normalfont \normalsize \textsc{Invidual Project} \\ [25pt]
+                \horrule{0.5pt} \\[0.4cm]
+                \huge Preliminary Report \\
+                \horrule{0.5pt} \\[0.5cm]
+}
+\author{
+                \normalfont                                                             \normalsize
+        Dan Prince\\[-3pt]              \normalsize
+        \today
+}
+\date{}
+
+
+%%% Begin document
+\begin{document}
+\maketitle
+\section{Project Brief}
+The aim of this project is to create a distributed audio platform that conditionally streams audio based on the physical location of a device within a network of connected devices. A session should be created, which devices can join, the devices will then be positioned and their positions should be relayed to a server, which will stream audio to the devices depending on their position.
+
+\section{Technology}
+The implementation for this project will be done with a web based (or Phonegap) client application and a Nodejs server. The asynchronous event based nature of Node makes it ideal for this kind of platform. It will also make use of HTML5 WebSockets, to handle the message passing and chunk streaming.
+
+
+\section{Ideas}
+The first part of the project that I am going to cover is the audio streaming. Once the devices have been localized, they should be ready to recieve streams.
+
+Streams need to be specific to the diffferent devices, and therefore need to be tied in some way to their localized identifier. This could be achieved by passing some identifier to the client, so that they can request a stream from a unique URL. A cleaner solution, however, would be to read audio files at the server, then break them into chunks and send the chunks over the WebSockets, so that they can be decoded and played at the client.
+
+Alternatively, the entirety of the files could be transferred to the client upon initialisation and then messages from the server would just act in conducting the different, play, pause or add/change effect at the client side. Syncronisation would almost certainly be easier to achieve like this, but it means that there would be a substantial delay at the start, as the clients download the audio files.
+
+
+\section{Implementation}
+
+
+\section{Demo}
+
+
+\subsection{Example for list (enumerate)}
+\begin{enumerate}
+        \item First item in a list 
+        \item Second item in a list 
+        \item Third item in a list
+\end{enumerate}
+%%% End document
+\end{document}
