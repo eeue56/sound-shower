@@ -1,7 +1,8 @@
 # Distributed Audio Platform 
-# Dan Prince
+## Dan Prince
 
 * 3rd Year Project *
+
 ---
 
 ** Table of Contents **
