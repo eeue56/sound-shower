@@ -1,6 +1,6 @@
 # Introduction
 
-[Table of Contents](readme.md) - [Definition](definitions.md)
+[Table of Contents](readme.md) - [Definitions](definitions.md)
 
 ### Brief
 
@@ -17,3 +17,5 @@ Audio could be streamed or delivered when the devices connect (depending on how 
 To achieve features like changing the volume of audio, some level of processing would need to be done at the server or on the client. Audio manipulation is a very heavy task and to do it on the fly as it is served would be expensive computationally. It would be ideal if the audio signal could be manipulated at the client instead.
 
 The clients in this project are likely to be mobile devices, meaning that whatever the client side software is written in, it should operate without technical difficulty on a good range of current smart phones.
+
+[Table of Contents](readme.md) - [Definitions](definitions.md)
