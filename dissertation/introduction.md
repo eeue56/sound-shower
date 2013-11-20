@@ -1,6 +1,8 @@
 # Introduction
 
-[Table of Contents](readme.md) - [Definitions](definitions.md)
+|[Table of Contents](readme.md) - [Definitions](definitions.md)|
+|:------------------------------------------------------------:|
+||
 
 ### Brief
 
@@ -18,4 +20,7 @@ To achieve features like changing the volume of audio, some level of processing 
 
 The clients in this project are likely to be mobile devices, meaning that whatever the client side software is written in, it should operate without technical difficulty on a good range of current smart phones.
 
-[Table of Contents](readme.md) - [Definitions](definitions.md)
+===
+|[Table of Contents](readme.md) - [Definitions](definitions.md)|
+|:------------------------------------------------------------:|
+||
