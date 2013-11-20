@@ -1,11 +1,7 @@
-# Distributed Audio Platform 
-## Dan Prince
+# Distributed Audio Platform  
 
-* 3rd Year Project *
 
----
-
-** Table of Contents **
+**Table of Contents**
 
 [Introduction](introduction.md)  
 [Definitions](definitions.md)  
@@ -17,4 +13,4 @@
 [Applications](applications.md)  
 [Extensions](extensions.md)  
 [Conclusions](conclusions.md)  
-[References](references.md)  
+[References](references.md)
