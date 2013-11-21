@@ -4,15 +4,19 @@
  */
 
 var express = require('express'),
-  routes = require('./routes'),
-  api = require('./routes/api'),
   http = require('http'),
-  path = require('path');
+  path = require('path'),
+  routes = require('./routes'),
+  db = require('./routes/db'),
+  api = require('./routes/api'),
+  device = require('./routes/device'),
+  session = require('./routes/session'),
+  audio = require('./routes/audio');
  
 var app = module.exports = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
-var config = require('config.json');
+var config = require('./config.json');
 
 /**
  * Configuration
@@ -46,14 +50,11 @@ if (app.get('env') === 'production') {
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
-// JSON API
-app.get('/api/name', api.name);
-
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
 
 // Socket.io Communication
-io.sockets.on('connection', require('./routes/socket'));
+//io.sockets.on('connection');
 
 /**
  * Start Server
