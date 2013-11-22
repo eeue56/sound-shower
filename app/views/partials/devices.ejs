@@ -1,0 +1,48 @@
+<div ng-show="loading" class="ui form loading"></div>
+
+<div ng-hide="loading">
+  <table class="ui compact table segment" ng-show="devices.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Device Id</th>
+        <th>IP</th>
+        <th>Status</th>
+        <th>Stream</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="device in devices">
+        <td>{{$index}}</td>
+        <td>{{device.id}}</td>
+        <td>{{device.ip}}</td>
+        <td ng-class="{warning:device.status == 0, positive:device.status == 1, error:device.status == 2}">
+          <div ng-show="device.status == 0">
+            <i class="icon loading"></i>Connecting
+          </div>
+          <div ng-show="device.status == 1">Ready</div>
+          <div ng-show="device.status == 2">Error</div>
+        </td>
+        <td>
+          <div class="ui mini icon button" ng-click="stream($index)">
+            <i class="play icon"></i>
+          </div>
+        </td>
+        <td>None</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="ui segment basic">
+    <div class="ui icon message" ng-hide="devices.length > 0">
+      <i class="icon meh"></i>
+      <div class="header">
+        There don't seem to be any connected devices
+      </div>
+      <p>
+        Either no one has connected, or you are looking in the wrong session?
+      </p>
+    </div>
+  </div>
+</div>

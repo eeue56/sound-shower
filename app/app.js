@@ -7,6 +7,7 @@ var express = require('express'),
   http = require('http'),
   path = require('path'),
   routes = require('./routes'),
+
   db = require('./routes/db'),
   api = require('./routes/api'),
   device = require('./routes/device'),
@@ -47,14 +48,14 @@ if (app.get('env') === 'production') {
  */
 
 // serve index and view partials
-app.get('/', routes.index);
+// 
+app.get('/', routes.client);
+app.get('/admin', routes.admin);
 app.get('/partials/:name', routes.partials);
 
-// redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
 
-// Socket.io Communication
-//io.sockets.on('connection');
+var shower = require('./routes/shower')(io);
+
 
 /**
  * Start Server

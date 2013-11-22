@@ -1,0 +1,39 @@
+<div ng-show="loading" class="ui form loading"></div>
+
+<div ng-hide="loading">
+  <div ng-show="tracks.length > 0">
+    <div class="ui segment track-search">
+      <div class="ui tiny icon input">
+        <input ng-model="search" type="text" placeholder="Search...">
+        <i class="search icon"></i>
+      </div>
+    </div>
+
+    <table class="ui compact table segment track-table">
+      <thead>
+        <tr><th>Name</th>
+        <th>Format</th>
+        <th>Select</th>
+      </tr></thead>
+      <tbody>
+        <tr ng-repeat="track in tracks | filter:search">
+          <td>{{track.title}}</td>
+          <td class="audio-format">{{track.format}}</td>
+          <td><input type="radio" name="select" ng-click="selectTrack($index)"></input></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ui segment basic" ng-hide="tracks.length > 0">
+    <div class="ui icon message" ng-hide="devices.length > 0">
+      <i class="icon meh"></i>
+      <div class="header">
+        There doesn't seem to be any music
+      </div>
+      <p>
+        There almost certainly should be, something probably went wrong!
+      </p>
+    </div>
+  </div>
+</div>

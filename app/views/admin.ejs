@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>SoundShower</title>
+    <link rel="stylesheet" href="/bower_components/semantic/build/packaged/css/semantic.min.css"></link>
+    <link rel="stylesheet" href="/admin/css/app.css"></link>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="ui vertical icon">
+      <a class="item" href="#/">
+        <i class="icon mobile"></i>
+      </a>
+      <a class="item" href="#/audio">
+        <i class="icon music"></i>
+      </a>
+      <a class="item" href="#/settings">
+        <i class="icon settings"></i>
+      </a>
+      <a class="item" href="#/create">
+        <i class="icon plus"></i>
+      </a>
+    </div>
+  </div>
+  
+  <div class="content">
+
+    <div class="device-view scrollable" ng-view></div>
+
+    <div class="terminal">
+      
+      <div class="ui small menu" ng-controller="StateController">
+
+        <div class="item">Session:</div>
+        <div class="item">
+          <select ng-model="session" ng-change="selectSession()">
+            <option ng-repeat="session in sessions" value="{{session.id}}">
+              {{session.name}}
+            </option>
+          </select>
+        </div>
+        
+        <div class="item">
+          <span class="lbl">State:</span>
+          <span>{{state}}</span>
+        </div>
+        
+        <div class="item">
+          <span class="lbl">Selected Audio:</span>
+          <span>{{audio}}</span>
+        </div>
+
+        <div class="right menu">
+          <div class="item">
+            <div class="ui tiny red button">Errors</div>
+          </div>
+          <div class="item">
+            <div class="ui tiny black button">Events</div>
+          </div>
+        </div>
+      
+      </div>
+
+      <div class="window scrollable" ng-controller="LogController">
+        <ul class="commands">
+            <li ng-repeat="log in logs">
+              {{log.message}}
+            </li>
+        </ul>
+        <div class="new-command" contentEditable>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-socket-io/socket.js"></script>
+  <script src="/admin/js/app.js"></script>
+  <script src="/admin/js/services.js"></script>
+  <script src="/admin/js/controllers.js"></script>
+  <script src="/admin/js/filters.js"></script>
+  <script src="/admin/js/directives.js"></script>
+</body>
+</html>

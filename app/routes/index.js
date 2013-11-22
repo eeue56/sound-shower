@@ -1,9 +1,9 @@
 /*
- * GET home page.
+ * GET client page.
  */
 
-exports.index = function(req, res){
-    res.render('index');
+exports.client = function(req, res){
+    res.render('client');
 };
 
 /*
@@ -16,34 +16,11 @@ exports.partials = function(req, res) {
 };
 
 /*
- * GET session managing interface
- */
-
-exports.manage = function(req, res) {
-    res.render('manage');
-};
-
-/*
- * GET join session interface
- */
-
-exports.join = function(req, res) {
-    var sessionId = req.params.sessionId;
-    if(typeof sessionId === 'undefined') {
-        res.render('error', {
-            
-        });
-    } else {
-        res.render('join');
-    }
-};
-
-/*
  * GET device manager interface
  */
 
-exports.devices = function(req, res) {
-    res.render('devices');
+exports.admin = function(req, res) {
+    res.render('admin');
 };
 
 /*
