@@ -1,6 +1,7 @@
-var Device = function(socket, settings) {
+var __id = 0;
+module.exports = function(socket, settings) {
 
-    var ip = settings.ip || "";
+    var id = '' + __id++;
     var status = 0;
 
     var on = function(event, fn) {
@@ -11,8 +12,11 @@ var Device = function(socket, settings) {
         socket.emit(event, data);
     };
 
+    var endpoint = socket.manager.handshaken[socket.id].address;
+
     return {
-        ip: ip,
+        id: id,
+        ip: endpoint.address,
         on: on,
         emit: emit,
         status: status

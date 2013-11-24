@@ -11,28 +11,76 @@ module.exports = function(io) {
 
     var sessions = {};
 
-    // Socket.io Communication
-    channels.admin = io.of('/admin').
-    on('connection', function(socket) {
+    var init = function() {
 
-        socket.on('request:tracks', function() {
-            socket.emit('send:tracks', getTracks());
-        });
+        // Socket.io Communication
+        channels.admin = io.of('/admin').
+        on('connection', function(socket) {
 
-        socket.on('switch:session', function(id) {
-            id = id.trim();
-
-            console.log('switching session', id);
-            socket.set('session', id, function() {
-                console.log(getDevices(id))
-                socket.emit('send:devices', getDevices(id));
+            socket.on('request:tracks', function() {
+                socket.emit('send:tracks', getTracks());
             });
-        });
-        
-        socket.on('create:session', createSession);
 
-        socket.emit('send:sessions', getSessions());
-    });
+            socket.on('switch:session', function(id) {
+                id = id.trim();
+
+                console.log('[SET] switching session', id);
+                socket.set('session', id, function() {
+                    socket.emit('send:devices', getDevices(id));
+                });
+            });
+            
+            socket.on('request:devices', function() {
+                socket.get('session', function(err, id) {
+                    if(err) throw err;
+                    var devices = [];
+
+                    if(typeof id !== "undefined") {
+                        // there is a session, attempt to get devices
+                        devices = getDevices(id);           
+                    }
+
+                    socket.emit('send:devices', devices);
+                });
+            });
+
+            socket.on('create:session', createSession);
+
+            socket.on('start:stream', function(opts) {
+                var id = opts.id;
+                var audio = opts.audio;
+
+                socket.get('session', function(err, sessionId) {
+                    if(err) throw err;
+                    var devices = [];
+
+                    if(typeof id !== "undefined") {
+                        devices = sessions[sessionId].devices;        
+                    }
+
+                    for(var i = 0; i < devices.length; i++) {
+                        console.log(devices[i].id, "===", id);
+                        if(devices[i].id == id) {
+                            console.log(devices[i]);
+                            devices[i].emit('send:stream', audio);
+                        }
+                    }
+                });
+            });
+
+            socket.emit('send:sessions', getSessions());
+        });
+
+
+        createSession({
+            id: 'global',
+            name: 'global'
+        });
+    };
+
+    var startStream = function(opts) {
+
+    };
 
     var createSession = function(settings) {
         var session = new Session(settings);
@@ -42,22 +90,29 @@ module.exports = function(io) {
     };
 
     var getDevices = function(id) {
-        console.log(sessions);
         var session = sessions[id];
 
         if(!session) {
-            console.log(id.length);
+            return [];
             throw {
                 name:"SessionNotFoundException",
                 message:"No session with the id '"+ id +"' could be found."
             };
         } else {
-            return session.devices;
+            return session.devices.map(function(device) {
+                console.log(device);
+                return {
+                    id: device.id,
+                    ip: device.ip,
+                    status: device.status
+                };
+            });
         }
     };
 
     var getTracks = function() {
-        var files = crawl('audio');
+
+        var files = crawl('/home/dan/dev/SoundShower/sound-shower/app/audio');
     
         var tracks = files.map(function(name) {
 
@@ -78,27 +133,49 @@ module.exports = function(io) {
         var sessionArray = [];
 
         for(var key in sessions) {
-            sessionArray.push(sessions[key]);
+            var session = sessions[key];
+            sessionArray.push({
+                id: session.id,
+                name: session.name
+            });
         }
 
         return sessionArray;
     };
 
     var bindSession = function(session) {
-        console.log(session);
         if(typeof session.id === "undefined") {
             throw {
                 name: "UndefinedSessionIdException",
                 message: "Session id was not defined"
             };
         } else {
-            console.log("enable connection to /connect/" + session.id);
+            console.log("\n\nListening on /connect/" + session.id);
             io.of('/connect/' + session.id).
             on('connection', function(socket) {
-                var session = sessions[session.id];
-                session.addDevice(socket);
+                console.log('\n\n\nWe got a connection!!!\n\n\n');
+
+                var device = new Device(socket);
+                console.log(device);
+                sessions[session.id].addDevice(device);
+
+                io.sockets.clients('admin').forEach(function(socket) {
+                    socket.emit('test');
+                    socket.get('session', function(err, id) {
+                        if(err) throw err;
+
+                        console.log(id, "===", session.id, id === session.id);
+                        if(id === session.id) {
+                            console.log('send devices');
+                            socket.emit('send:devices', getDevices(id));
+                        }
+                    });
+                });
+
             });
         }
     };
 
+
+    init();
 };

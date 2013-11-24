@@ -8,22 +8,33 @@ angular.module('app.controllers', []).
    * Device Controller
    * Manages the device view page 
    */
-  controller('DevicesController', function($scope, socket) {
+  controller('DevicesController', function($scope, socket, settings) {
     
     $scope.devices = [];
     $scope.loading = true;
     
     $scope.stream = function(idx) {
-      
+
+      socket.emit('start:stream', {
+        id: $scope.devices[idx].id, 
+        audio: settings.get('audio')
+      });
+
+      console.log('start:steam', $scope.devices[idx].id, settings.get('audio'));
     };
 
+    socket.on('test', function() {
+      alert('test');
+    });
+
     socket.on('send:devices', function(devices) {
+      console.log('send:devices', devices);
       $scope.loading = false;
       $scope.devices = devices;
     });
 
     socket.on('update:device', function(id, status) {
-      // update device with this is
+      // update device with this id
       for(var i = 0; i < $scope.devices.length; i++) {
         if($scope.devices[id] === id) {
           $scope.devices[id].status = status;
@@ -35,7 +46,8 @@ angular.module('app.controllers', []).
     socket.on('send:device', function(device) {
       $scope.devices.push(device);
     });
-    
+
+    socket.emit('request:devices');
   }).
 
   controller('AudioController', function($scope, socket, settings, events) {
@@ -82,6 +94,10 @@ angular.module('app.controllers', []).
         console.log('Here come sessions');
         console.log(sessions);
         $scope.sessions = sessions;
+        if(sessions.length > 0) {
+          $scope.session = sessions[0].id;
+          $scope.selectSession();
+        }
       });
 
       socket.on('new:session', function(session) {

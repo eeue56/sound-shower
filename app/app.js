@@ -11,8 +11,7 @@ var express = require('express'),
   db = require('./routes/db'),
   api = require('./routes/api'),
   device = require('./routes/device'),
-  session = require('./routes/session'),
-  audio = require('./routes/audio');
+  session = require('./routes/session');
  
 var app = module.exports = express();
 var server = require('http').createServer(app);
@@ -52,7 +51,7 @@ if (app.get('env') === 'production') {
 app.get('/', routes.client);
 app.get('/admin', routes.admin);
 app.get('/partials/:name', routes.partials);
-
+app.get('/play/:name', routes.play);
 
 var shower = require('./routes/shower')(io);
 

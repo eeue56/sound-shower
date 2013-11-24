@@ -1,3 +1,4 @@
+var stream = require('./stream');
 /*
  * GET client page.
  */
@@ -30,3 +31,6 @@ exports.admin = function(req, res) {
 exports.login = function(req, res) {
     res.render('login');
 };
+
+
+exports.play = stream;

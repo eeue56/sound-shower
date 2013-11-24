@@ -13,15 +13,22 @@ angular.module('app', [
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
-    when('/connect/:id', {
-      controller: 'ConnectController'
+    when('/', {
+      templateUrl: '/partials/devices',
+      controller: 'DevicesController'
     }).
-    when('/error', {
-      controller: 'ErrorController',
-      resolve: {
-        connect: 'ConnectController'
-      }
+    when('/audio', {
+      templateUrl: '/partials/audio',
+      controller: 'AudioController'
+    }).
+    when('/settings', {
+      templateUrl: '/partials/settings',
+    }).
+    when('/create', {
+      templateUrl: '/partials/create',
+      controller: 'CreateController'    
+    }).
+    otherwise({
+      redirectTo: '/'
     });
-
-  $locationProvider.html5Mode(true);
 });
