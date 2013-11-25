@@ -19,6 +19,8 @@ Here are the definitions for each of the terms that will be used in this project
 |JS|See _Javascript_||
 |Node|Server side Javascript platform|[http://nodejs.org/](http://nodejs.org/)|
 |JSON|Document based data representation|[http://en.wikipedia.org/wiki/JSON](http://en.wikipedia.org/wiki/JSON)|
+|Session|A virtual room, in which streaming across devices can take place|
+|Stream|A continuous relay of chunks of audio data|
 
 ===
 
