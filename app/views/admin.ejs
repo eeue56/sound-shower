@@ -43,11 +43,6 @@
         </div>
         
         <div class="item">
-          <span class="lbl">State:</span>
-          <span>{{state}}</span>
-        </div>
-        
-        <div class="item">
           <span class="lbl">Selected Audio:</span>
           <span>{{audio}}</span>
         </div>
@@ -65,8 +60,10 @@
 
       <div class="window scrollable" ng-controller="LogController">
         <ul class="commands">
-            <li ng-repeat="log in logs">
-              {{log.message}}
+            <li ng-repeat="log in logs" >
+              <span ng-class="{error:log.type=='error'}">
+                {{log.message}}
+              </span>
             </li>
         </ul>
         <div class="new-command" contentEditable>

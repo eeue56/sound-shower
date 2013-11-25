@@ -11,16 +11,18 @@
 
     <table class="ui compact table segment track-table">
       <thead>
-        <tr><th>Name</th>
-        <th>Format</th>
+        <tr>
+        <th>Name</th>
         <th>Select</th>
+        <th>Format</th>
       </tr></thead>
       <tbody>
         <tr ng-repeat="track in tracks | filter:search">
           <td>{{track.title}}</td>
-          <td class="audio-format">{{track.format}}</td>
           <td><input type="radio" name="select" ng-click="selectTrack($index)"></input></td>
-        </tr>
+          
+          <td class="audio-format">{{track.format}}</td>
+          </tr>
       </tbody>
     </table>
   </div>

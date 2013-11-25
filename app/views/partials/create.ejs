@@ -1,11 +1,23 @@
-<div class="ui form segment">
-  <div class="field">
-    <label>Session Name</label>
-    <input ng-model="name" type="text">
+<div class="ui small form segment">
+  <h3 class="ui header">Create Session</h3>
+  <div class="ui divider"></div>
+  <div class="two fields">
+    <div class="field">
+      <label>Session Name</label>
+      <input class="ui small" ng-model="name" type="text">
+    </div>
+    <div class="field">
+      <label>Session Id</label>
+      <input ng-model="id" type="text">
+    </div>
   </div>
-  <div class="field">
-    <label>Session Id</label>
-    <input ng-model="id" type="text">
+  <div class="ui small button" ng-click="create()">Create</div>
+  
+  <div class="ui message success" ng-show="success">
+    Session created successfully.
   </div>
-  <div class="ui button" ng-click="create()">Create</div>
+
+  <div class="ui error message" ng-show="error">
+    Session created successfully.
+  </div>
 </div>

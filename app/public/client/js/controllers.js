@@ -17,7 +17,15 @@ angular.module('app.controllers', []).
       audio.addEventListener('load', function() {
         console.log('audio is ready');
       });
+      audio.addEventListener('ended', function() {
+        console.log('audio has ended');
+        socket.emit('end:stream');
+      });
       audio.play();
+    });
+
+    socket.on('ready?', function() {
+      socket.emit('ready');
     });
   }).
 

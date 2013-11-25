@@ -55,7 +55,16 @@ angular.module('app.services', []).
     var subscriptions = [];
 
     var log = function(msg) {
-        for(var i = 0; i < subscriptions.length; i++) {
+      notify("event", msg)
+    };
+
+    var error = function(msg) {
+      notify("error", msg);
+    };
+
+    var notify = function(type, msg) {
+      msg.type = type;
+      for(var i = 0; i < subscriptions.length; i++) {
             if(typeof subscriptions[i] === "function") {
                 subscriptions[i](msg);
             }
@@ -68,6 +77,7 @@ angular.module('app.services', []).
 
     return {
         log: log,
+        error: error,
         subscribe: subscribe
     };
   }).

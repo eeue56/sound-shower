@@ -4,7 +4,6 @@
   <table class="ui compact table segment" ng-show="devices.length > 0">
     <thead>
       <tr>
-        <th>#</th>
         <th>Device Id</th>
         <th>IP</th>
         <th>Status</th>
@@ -14,7 +13,6 @@
     </thead>
     <tbody>
       <tr ng-repeat="device in devices">
-        <td>{{$index}}</td>
         <td>{{device.id}}</td>
         <td>{{device.ip}}</td>
         <td ng-class="{warning:device.status == 0, positive:device.status == 1, error:device.status == 2}">

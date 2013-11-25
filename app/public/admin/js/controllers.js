@@ -8,19 +8,38 @@ angular.module('app.controllers', []).
    * Device Controller
    * Manages the device view page 
    */
-  controller('DevicesController', function($scope, socket, settings) {
+  controller('DevicesController', function($scope, socket, settings, events) {
     
     $scope.devices = [];
     $scope.loading = true;
     
+    $scope.streamAll = function() {
+      for(var i = 0; i < devices.length; i++) {
+        $scope.stream(i);
+      }
+    };
+
     $scope.stream = function(idx) {
+      var track = settings.get('audio');
+
+      console.log('track', track);
+      if(track === null || typeof track === 'undefined') {
+        events.error({
+          name: "No track selected.",
+          message: "No track was selected!"
+        });
+        return;
+      }
 
       socket.emit('start:stream', {
         id: $scope.devices[idx].id, 
         audio: settings.get('audio')
       });
 
-      console.log('start:steam', $scope.devices[idx].id, settings.get('audio'));
+      events.log({
+        name: 'Starting stream',
+        message: 'Streaming ' + settings.get('audio') + ' to ' + $scope.devices[idx].id
+      });
     };
 
     socket.on('test', function() {
@@ -28,7 +47,7 @@ angular.module('app.controllers', []).
     });
 
     socket.on('send:devices', function(devices) {
-      console.log('send:devices', devices);
+      console.log("Devices are here");
       $scope.loading = false;
       $scope.devices = devices;
     });
@@ -44,6 +63,7 @@ angular.module('app.controllers', []).
     });
 
     socket.on('send:device', function(device) {
+      console.log('new device');
       $scope.devices.push(device);
     });
 
@@ -77,13 +97,8 @@ angular.module('app.controllers', []).
 
   controller('StateController', function($scope, settings, events, socket) {
       $scope.session = null;
-      $scope.state = "Doing nothing";
       $scope.audio = "...";
       $scope.sessions = [];
-
-      settings.subscribe('state', function(state) {
-        $scope.state = state;
-      });
 
       settings.subscribe('audio', function(audio) {
         console.log("Controller");
@@ -136,11 +151,14 @@ angular.module('app.controllers', []).
   controller('CreateController', function($scope, socket, events) {
       $scope.name = "";
       $scope.id = "";
+      $scope.error = "";
+      $scope.success = "";
 
       $scope.create = function() {
         socket.emit('create:session', {
           name: $scope.name,
           id: $scope.id
         });
+        $scope.success = "Session created.";
       };
   });

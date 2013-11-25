@@ -100,7 +100,6 @@ module.exports = function(io) {
             };
         } else {
             return session.devices.map(function(device) {
-                console.log(device);
                 return {
                     id: device.id,
                     ip: device.ip,
@@ -150,29 +149,67 @@ module.exports = function(io) {
                 message: "Session id was not defined"
             };
         } else {
-            console.log("\n\nListening on /connect/" + session.id);
             io.of('/connect/' + session.id).
             on('connection', function(socket) {
                 console.log('\n\n\nWe got a connection!!!\n\n\n');
 
                 var device = new Device(socket);
-                console.log(device);
                 sessions[session.id].addDevice(device);
 
-                io.sockets.clients('admin').forEach(function(socket) {
-                    socket.emit('test');
-                    socket.get('session', function(err, id) {
-                        if(err) throw err;
+                socket.emit('ready?');
 
-                        console.log(id, "===", session.id, id === session.id);
-                        if(id === session.id) {
-                            console.log('send devices');
-                            socket.emit('send:devices', getDevices(id));
-                        }
+                socket.on('disconnect', function () {
+                    sessions[session.id].removeDevice(device.id);
+
+                    io.sockets.clients('admin').forEach(function(socket) {
+                        
+                        (function(socket) {
+                            socket.get('session', function(err, id) {
+                                if(err) throw err;
+                                
+                                socket.emit('send:devices', getDevices(id));
+                            });
+                        })(socket);
                     });
+
+                });
+
+                socket.on('ready', function() {
+                    io.sockets.clients('admin').forEach(function(socket) {
+                    
+                        (function(socket) {
+                            device.status = 1;
+                            socket.get('session', function(err, id) {
+                                if(err) throw err;
+
+                                console.log(id, "===", session.id, id === session.id);
+                                if(id === session.id) {
+                                    console.log('device ready');
+                                    socket.emit('update:device', device);
+                                }
+                            });
+                        })(socket);
+                    });                                            
+                });
+
+                io.sockets.clients('admin').forEach(function(socket) {
+                    
+                    (function(socket) {
+                        socket.get('session', function(err, id) {
+                            if(err) throw err;
+
+                            console.log(id, "===", session.id, id === session.id);
+                            if(id === session.id) {
+                                console.log('send device');
+                                socket.emit('send:devices', device);
+                            }
+                        });
+                    })(socket);
                 });
 
             });
+
+
         }
     };
 

@@ -83,6 +83,10 @@ a {
     color:#3F6FAD;
 }
 
+.terminal .error {
+    color:red;
+}
+
 .terminal .new-command {
     color:#ddddee;
 }
