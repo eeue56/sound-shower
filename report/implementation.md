@@ -35,6 +35,42 @@
 
 
 ===
+
+### Design
+
+#### Server Events
+ - Start
+ - Stop
+ - Create Session
+ - Remove Session
+ - Device Connect
+ - Device Ready
+ - Device Error
+ - Device Disconnect
+ - Start Stream
+ - Message
+ - Get Audio
+ - Process Command
+
+#### Device Events
+ - Ready
+ - Error
+ - Receive Stream
+ - Message
+
+#### Admin Events
+ - Create Session
+ - Remove Session
+ - Session Created
+ - Select Session
+ - Device Connects
+ - Device Updates
+ - Error
+ - Get Audio
+ - Start Stream
+ - Send Command
+
+===
 |[Methodology](methodology.md) - [Applications](applications.md)|
 |:-----------------------------------------------------:|
 ||
